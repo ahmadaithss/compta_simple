@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record model="ir.ui.view" id="transactionconfig_achat_form_view">
-            <field name="name">transactionconfig.achat.form.view</field>
-            <field name="model">transactioncofig.achat</field>
+        <record model="ir.ui.view" id="transaction_config_category_form_view">
+            <field name="name">transaction.config.category.form.view</field>
+            <field name="model">transaction.config.category</field>
+            <field name="arch" type="xml">
+                <form string="Configuration des categories des transactions">
+                    <sheet>
+                        <group col="2">
+                            <field name="name"/>
+                            <field name="parent_id" string="catégorie parent"/>
+                            <field name="compte_debit"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="transaction_config_achat_form_view">
+            <field name="name">transaction.config.achat.form.view</field>
+            <field name="model">transaction.config.achat</field>
             <field name="arch" type="xml">
                 <form string="configuration des achats">
                     <sheet>
                         <group col="2">
-                            <field name="name"/>
+                            <field name="name" string="nom"/>
                             <field name="description"/>
+                            <field name="categorie"/>
                         </group>
                         <group col="2">
-                            <field name="tax_ids" widget="many2many_tags" context="{'type':parent.type}"
-                                        domain="[('type_tax_use','=','purchase'),('company_id', '=', parent.company_id)]" options="{'no_create': True}"/>
+                            <field name="compte_debit"/>
+                            <field name="tax_ids" widget="many2many_tags" />
                         </group>
                     </sheet>
                 </form>
@@ -22,7 +38,7 @@
         <!-- Actions-->
         <record model="ir.actions.act_window" id="transaction_config_achat_action">
             <field name="name">config achats action</field>
-            <field name="res_model">transactioncofig.achat</field>
+            <field name="res_model">transaction.config.achat</field>
             <field name="view_type">form</field>
             <field name="view_mode">form,tree</field>
         </record>
