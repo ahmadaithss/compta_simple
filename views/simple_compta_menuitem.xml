@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <menuitem id="main_achat_menu" name="Comptabilité simplifié"/>
-        <menuitem id="transaction_config_menu" name="Paramètres des transactions"
+        <menuitem id="transaction_config_menu" name="Paramètrage des transactions"
                   parent="main_achat_menu"/>
         <menuitem id="transaction_config_achat" name="Achats" parent="transaction_config_menu" action="transaction_config_achat_action"/>
         <menuitem id="transaction_config_immobilisations" name="Immobilisations" parent="transaction_config_menu"/>

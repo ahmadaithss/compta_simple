@@ -7,10 +7,10 @@
             <field name="arch" type="xml">
                 <form string="Configuration des categories des transactions">
                     <sheet>
-                        <group col="2">
-                            <field name="name"/>
-                            <field name="parent_id" string="catégorie parent"/>
-                            <field name="compte_debit"/>
+                        <group col="4" colspan="4">
+                            <field name="name" string="Nom"/>
+                            <field name="parent_id" string="Catégorie parent"/>
+                            <field name="compte_debit" string="Compte de débit"/>
                         </group>
                     </sheet>
                 </form>
@@ -22,15 +22,43 @@
             <field name="arch" type="xml">
                 <form string="configuration des achats">
                     <sheet>
-                        <group col="2">
-                            <field name="name" string="nom"/>
-                            <field name="description"/>
-                            <field name="categorie"/>
+                        <group col="4" colspan="4">
+                            <field name="name" string="Nom"/>
+                            <field name="categorie" string="Catégorie"/>
                         </group>
-                        <group col="2">
-                            <field name="compte_debit"/>
-                            <field name="tax_ids" widget="many2many_tags" />
+                        <group col="4" colspan="4">
+                            <field name="compte_debit" string="Compte de débit"/>
+                            <field name="tax_ids" widget="many2many_tags" string="Les Taux de TVA par défaut"/>
                         </group>
+                        <separator string="Details" colspan="4" />
+                         <group col="2">
+                            <field name="description" string="Description"/>
+                        </group>
+                        <notebook>
+                            <page string="Fournisseurs">
+                                <group cols='3'>
+                                    <field name="partner_ids" widget="many2many_kanban" string="La liste des fournisseurs">
+                                        <kanban quick_create="false" create="true" delete="true">
+                                                <field name="name"/>
+                                                <templates>
+                                                    <t t-name="kanban-box">
+                                                        <div class="oe_kanban_global_click" style="position: relative">
+                                                            <a t-if="! read_only_mode" type="delete" style="position: absolute; left:50%; padding: 4px; diplay: inline-block">X</a>
+                                                            <div class="oe_module_vignette">
+                                                                <img t-att-src="kanban_image('res.partner', 'image_small', record.id.value)" class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                                <div class="oe_module_desc">
+                                                                    <field name="name"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </templates>
+                                        </kanban>
+                                     </field>
+
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
