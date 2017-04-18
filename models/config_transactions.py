@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
-
+import pdb
 #configuration des categorie des transactions
 class transaction_achat_category(models.Model):
     _inherit = 'product.category'
@@ -13,7 +13,7 @@ class transaction_achat_category(models.Model):
 
 #configuration des transaction d'achats
 class transaction_achat_config(models.Model):
-    _inherit = 'product.template'
+    _inherits = {'product.template': 'product_tmpl_id'}
     _name="transaction.config.achat"
     #les tva applicable sur une transactions
     tax_ids = fields.Many2many('account.tax', 'transaction_achat_config_tva_default_rel',
@@ -33,10 +33,13 @@ class transaction_achat_config(models.Model):
         help="le compte de débit qui sera utilisé lors de la génération de l'écriture comptable de la transaction.")
 
     #les categories des transactions
-    categorie=fields.Many2one(
+    categ_id=fields.Many2one(
         'transaction.config.category', 'Catégorie',
         required=True, help="Selectionner la categorie de la transaction")
        #une transaction peut avoir plusieurs fournisseur
     partner_ids=fields.Many2many('res.partner','transaction_achat_config_partner_rel',
                                  'transaction_achat_config_id','partner_id',string='La liste des fournisseurs',
                                   domaine=[('supplier'),'=',True])
+
+
+pdb.set_trace()
